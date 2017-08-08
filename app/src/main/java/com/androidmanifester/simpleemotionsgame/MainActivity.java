@@ -2,6 +2,7 @@ package com.androidmanifester.simpleemotionsgame;
 
 import android.animation.ObjectAnimator;
 import android.content.SharedPreferences;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
@@ -12,7 +13,10 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+import android.widget.ToggleButton;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -32,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
     ArrayList<TextView> tvs;
 
     int height,width ;
-    TextView tv1,tv2,tv4,tv5,tv6;
+    TextView tv1,tv2,tv4,tv5,tv6,tv13,tv8,tv9,tv10,tv11,tv12;
 
     TextView tvscore;
     String SelectedWord;
@@ -41,7 +45,10 @@ public class MainActivity extends AppCompatActivity {
     int score;
     private SoundHelper mSoundHelper;
     Animation animatn;
-
+    private Toast toast;
+    private long lastBackPressTime = 0;
+    ToggleButton toggleButton;
+    ImageView  imageView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,6 +58,17 @@ public class MainActivity extends AppCompatActivity {
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         setContentView(R.layout.activity_main);
+
+        if(((getIntent().getIntExtra("ori",1))==1)){
+            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        }
+        else {
+            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+        }
+
+      //  setRequestedOrientation(Integer.parseInt(getIntent().getStringExtra("ori")));
+
+
         DisplayMetrics displayMetrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
         height = displayMetrics.heightPixels;
@@ -66,6 +84,12 @@ public class MainActivity extends AppCompatActivity {
         tv4 = (TextView)findViewById(R.id.textView4);
         tv5 = (TextView)findViewById(R.id.textView5);
         tv6 = (TextView)findViewById(R.id.textView6);
+        tv8 = (TextView)findViewById(R.id.textView8);
+        tv9 = (TextView)findViewById(R.id.textView9);
+        tv10 = (TextView)findViewById(R.id.textView10);
+        tv11 = (TextView)findViewById(R.id.textView11);
+        tv12 = (TextView)findViewById(R.id.textView12);
+        tv13 = (TextView)findViewById(R.id.textView13);
         sharedPreferences=getSharedPreferences("sfname",MODE_PRIVATE);
         editor=sharedPreferences.edit();
         tvscore= (TextView) findViewById(R.id.textView3);
@@ -87,6 +111,13 @@ public class MainActivity extends AppCompatActivity {
         tvs.add(tv4);
         tvs.add(tv5);
         tvs.add(tv6);
+        tvs.add(tv6);
+        tvs.add(tv8);
+        tvs.add(tv9);
+        tvs.add(tv10);
+        tvs.add(tv11);
+        tvs.add(tv12);
+        tvs.add(tv13);
 
         //contented, content, cheerful, cheery, merry, joyful
         Happy.add("Contented");
@@ -96,56 +127,56 @@ public class MainActivity extends AppCompatActivity {
         Happy.add("Joyful");
         //	unhappy, sorrowful, dejected, regretful, depressed, downcast,
         Sad.add("unhappy");
-        Sad.add("sorrowful");
-        Sad.add("dejected");
-        Sad.add("regretful");
-        Sad.add("depressed");
+        Sad.add("Sorrowful");
+        Sad.add("Dejected");
+        Sad.add("Regretful");
+        Sad.add("Depressed");
         //	fine, of high quality, of a high standard, quality, superior
-        Good.add("fine");
-        Good.add("of high quality");
-        Good.add("of a high standard");
-        Good.add("quality");
-        Good.add("superior");
+        Good.add("Fine");
+        Good.add("Of high quality");
+        Good.add("Of a high standard");
+        Good.add("Quality");
+        Good.add("Superior");
         //	substandard, poor, inferior, second-rate, second-class, unsatisfactory, inadequate, unacceptable,
         // not up to scratch, not up to par,
         // deficient, imperfect, defective, faulty, shoddy, amateurish, careless, negligent
-        Bad.add("poor");
-        Bad.add("imperfect");
-        Bad.add("defective");
-        Bad.add("faulty");
-        Bad.add("substandard");
+        Bad.add("Poor");
+        Bad.add("Imperfect");
+        Bad.add("Defective");
+        Bad.add("Faulty");
+        Bad.add("Substandard");
         //	uncanny, eerie, unnatural, preternatural, supernatural, unearthly,
         // other-worldly, unreal, ghostly, mysterious
-        Weird.add("mysterious");
-        Weird.add("supernatural");
-        Weird.add("unearthly");
-        Weird.add("unreal");
-        Weird.add("eerie");
+        Weird.add("Mysterious");
+        Weird.add("Supernatural");
+        Weird.add("Unearthly");
+        Weird.add("Unreal");
+        Weird.add("Eerie");
         All.add("Contented");
         All.add("Cheerful");
         All.add("Cheery");
         All.add("Merry");
         All.add("Joyful");
-        All.add("unhappy");
-        All.add("sorrowful");
-        All.add("dejected");
-        All.add("regretful");
-        All.add("depressed");
-        All.add("fine");
-        All.add("of high quality");
-        All.add("of a high standard");
-        All.add("quality");
-        All.add("superior");
-        All.add("poor");
-        All.add("imperfect");
-        All.add("defective");
-        All.add("faulty");
-        All.add("substandard");
-        All.add("mysterious");
-        All.add("supernatural");
-        All.add("unearthly");
-        All.add("unreal");
-        All.add("eerie");
+        All.add("Unhappy");
+        All.add("Sorrowful");
+        All.add("Dejected");
+        All.add("Regretful");
+        All.add("Depressed");
+        All.add("Fine");
+        All.add("Of high quality");
+        All.add("Of a high standard");
+        All.add("Quality");
+        All.add("Superior");
+        All.add("Poor");
+        All.add("Imperfect");
+        All.add("Defective");
+        All.add("Faulty");
+        All.add("Substandard");
+        All.add("Mysterious");
+        All.add("Supernatural");
+        All.add("Unearthly");
+        All.add("Unreal");
+        All.add("Eerie");
 
         BalloonColor.add(R.drawable.balloon_blue);
         BalloonColor.add(R.drawable.balloon_green);
@@ -162,7 +193,7 @@ public class MainActivity extends AppCompatActivity {
                 //Do something after 100ms
                 startgame();
             }
-        }, 2000);
+        }, 1500);
 
         final Handler handler2 = new Handler();
         handler2.postDelayed(new Runnable() {
@@ -171,9 +202,7 @@ public class MainActivity extends AppCompatActivity {
                 //Do something after 100ms
                 startgame();
             }
-        }, 5000);
-        startgame();
-
+        }, 2800);
         final Handler handler3 = new Handler();
         handler3.postDelayed(new Runnable() {
             @Override
@@ -181,23 +210,21 @@ public class MainActivity extends AppCompatActivity {
                 //Do something after 100ms
                 startgame();
             }
-        }, 2000);
-
-        final Handler handler4 = new Handler();
-        handler4.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                //Do something after 100ms
-                startgame();
-            }
-        }, 5000);
+        }, 3450);
+        //startgame();
     }
+
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
-        mSoundHelper.stopMusic();
+         super.onBackPressed();
+          mSoundHelper.stopMusic();
+      ///  finish();
+       // System.exit(0);
+
 
     }
+
+
     public void startgame() {
         Timer t2 = new Timer();
 //Set the schedule function and rate
@@ -226,12 +253,18 @@ public class MainActivity extends AppCompatActivity {
     }
     public void animat(final TextView t, String v){
         final ObjectAnimator mover = ObjectAnimator.ofFloat(t, "translationY",0, -height);
-        mover.setDuration(4000);
-        mover.clone();
-        t.setText(v);
-        mover.setRepeatCount(0);
-        mover.start();
 
+        mover.setDuration(5000);
+        //mover.clone();
+
+        //mover.setRepeatCount(0);
+if(mover.isRunning()){
+
+}else {
+    t.setText(v);
+   // t.setWidth(100);
+    mover.start();
+}
         t.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -261,12 +294,17 @@ public class MainActivity extends AppCompatActivity {
                     score=score+10;
                     tvscore.setText(score+"");
                     mSoundHelper.playSound(t,0);
-                    t.startAnimation(animatn);
+                    //mover.cancel();
+                    mover.end();
+                    //t.startAnimation(animatn);
                 }else {
                     score=score-10;
                     tvscore.setText(score+"");
                     mSoundHelper.playSound(t,1);
-                    t.startAnimation(animatn);
+//                    mover.cancel();
+                    mover.end();
+
+                    //t.startAnimation(animatn);
                 }
                 t.setClickable(false);
                /// Toast.makeText(getApplicationContext(), "is "+state, Toast.LENGTH_SHORT).show();
