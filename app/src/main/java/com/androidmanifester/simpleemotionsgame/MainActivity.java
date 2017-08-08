@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
 import android.view.Gravity;
@@ -17,6 +18,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
+
+import com.afollestad.materialdialogs.DialogAction;
+import com.afollestad.materialdialogs.MaterialDialog;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -35,20 +39,21 @@ public class MainActivity extends AppCompatActivity {
     ArrayList<Integer> BalloonColor;
     ArrayList<TextView> tvs;
 
-    int height,width ;
-    TextView tv1,tv2,tv4,tv5,tv6,tv13,tv8,tv9,tv10,tv11,tv12;
+    int height, width;
+    TextView tv1, tv2, tv4, tv5, tv6, tv13, tv8, tv9, tv10, tv11, tv12;
 
     TextView tvscore;
     String SelectedWord;
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
     int score;
-    private SoundHelper mSoundHelper;
     Animation animatn;
+    ToggleButton toggleButton;
+    ImageView imageView;
+    private SoundHelper mSoundHelper;
     private Toast toast;
     private long lastBackPressTime = 0;
-    ToggleButton toggleButton;
-    ImageView  imageView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,14 +64,13 @@ public class MainActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_main);
 
-        if(((getIntent().getIntExtra("ori",1))==1)){
+        if (((getIntent().getIntExtra("ori", 1)) == 1)) {
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-        }
-        else {
+        } else {
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         }
 
-      //  setRequestedOrientation(Integer.parseInt(getIntent().getStringExtra("ori")));
+        //  setRequestedOrientation(Integer.parseInt(getIntent().getStringExtra("ori")));
 
 
         DisplayMetrics displayMetrics = new DisplayMetrics();
@@ -77,34 +81,34 @@ public class MainActivity extends AppCompatActivity {
 
         mSoundHelper.prepareMusicPlayer(this);
         mSoundHelper.playMusic();
-        animatn= AnimationUtils.loadAnimation(MainActivity.this,R.anim.explode);
+        animatn = AnimationUtils.loadAnimation(MainActivity.this, R.anim.explode);
 
-        tv1 = (TextView)findViewById(R.id.textView);
-        tv2 = (TextView)findViewById(R.id.textView2);
-        tv4 = (TextView)findViewById(R.id.textView4);
-        tv5 = (TextView)findViewById(R.id.textView5);
-        tv6 = (TextView)findViewById(R.id.textView6);
-        tv8 = (TextView)findViewById(R.id.textView8);
-        tv9 = (TextView)findViewById(R.id.textView9);
-        tv10 = (TextView)findViewById(R.id.textView10);
-        tv11 = (TextView)findViewById(R.id.textView11);
-        tv12 = (TextView)findViewById(R.id.textView12);
-        tv13 = (TextView)findViewById(R.id.textView13);
-        sharedPreferences=getSharedPreferences("sfname",MODE_PRIVATE);
-        editor=sharedPreferences.edit();
-        tvscore= (TextView) findViewById(R.id.textView3);
-        score=0;
-        SelectedWord=sharedPreferences.getString("selectedword","None");
+        tv1 = (TextView) findViewById(R.id.textView);
+        tv2 = (TextView) findViewById(R.id.textView2);
+        tv4 = (TextView) findViewById(R.id.textView4);
+        tv5 = (TextView) findViewById(R.id.textView5);
+        tv6 = (TextView) findViewById(R.id.textView6);
+        tv8 = (TextView) findViewById(R.id.textView8);
+        tv9 = (TextView) findViewById(R.id.textView9);
+        tv10 = (TextView) findViewById(R.id.textView10);
+        tv11 = (TextView) findViewById(R.id.textView11);
+        tv12 = (TextView) findViewById(R.id.textView12);
+        tv13 = (TextView) findViewById(R.id.textView13);
+        sharedPreferences = getSharedPreferences("sfname", MODE_PRIVATE);
+        editor = sharedPreferences.edit();
+        tvscore = (TextView) findViewById(R.id.textView3);
+        score = 0;
+        SelectedWord = sharedPreferences.getString("selectedword", "None");
 
-        Happy=new ArrayList<String>();
-        Sad=new ArrayList<String>();
-        Good=new ArrayList<String>();
-        Bad=new ArrayList<String>();
-        Weird=new ArrayList<String>();
-        All=new ArrayList<String>();
-        BalloonColor=new ArrayList<Integer>();
+        Happy = new ArrayList<String>();
+        Sad = new ArrayList<String>();
+        Good = new ArrayList<String>();
+        Bad = new ArrayList<String>();
+        Weird = new ArrayList<String>();
+        All = new ArrayList<String>();
+        BalloonColor = new ArrayList<Integer>();
 
-        tvs=new ArrayList<TextView>();
+        tvs = new ArrayList<TextView>();
 
         tvs.add(tv1);
         tvs.add(tv2);
@@ -216,12 +220,28 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-         super.onBackPressed();
-          mSoundHelper.stopMusic();
-      ///  finish();
-       // System.exit(0);
 
-
+        ///  finish();
+        // System.exit(0);
+        new MaterialDialog.Builder(this)
+                .title("Confirm Exit")
+                .content("Are You Sure?")
+                .positiveText("Exit")
+                .negativeText("Cancel")
+                .onPositive(new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                        finish();
+                        mSoundHelper.stopMusic();
+                    }
+                })
+                .onNegative(new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                        dialog.dismiss();
+                    }
+                })
+                .show();
     }
 
 
@@ -230,84 +250,82 @@ public class MainActivity extends AppCompatActivity {
 //Set the schedule function and rate
         t2.scheduleAtFixedRate(new TimerTask() {
 
-           @Override
-           public void run() {
+                                   @Override
+                                   public void run() {
 //Called each time when 4000 milliseconds (4 second) (the period parameter)
-               runOnUiThread(new Runnable() {
-                   @Override
-                   public void run() {
+                                       runOnUiThread(new Runnable() {
+                                           @Override
+                                           public void run() {
 //stuff that updates ui
-                       Collections.shuffle(tvs, new Random(System.nanoTime()));
-                       tvs.get(0).setGravity(Gravity.CENTER);
-                       Collections.shuffle(BalloonColor, new Random(System.nanoTime()));
-                       tvs.get(0).setBackgroundResource(BalloonColor.get(0));
-                       Collections.shuffle(All, new Random(System.nanoTime()));
-                       animat(tvs.get(0),All.get(0));
-                   }
-               });
-           }
-
-        },//Set how long before to start calling the TimerTask (in milliseconds)
-        0,//Set the amount of time between each execution (in milliseconds)
-        4000);
+                                               Collections.shuffle(tvs, new Random(System.nanoTime()));
+                                               tvs.get(0).setGravity(Gravity.CENTER);
+                                               Collections.shuffle(BalloonColor, new Random(System.nanoTime()));
+                                               tvs.get(0).setBackgroundResource(BalloonColor.get(0));
+                                               Collections.shuffle(All, new Random(System.nanoTime()));
+                                               animat(tvs.get(0), All.get(0));
+                                           }
+                                       });
+                                   }
+                               },//Set how long before to start calling the TimerTask (in milliseconds)
+                0,//Set the amount of time between each execution (in milliseconds)
+                4000);
     }
-    public void animat(final TextView t, String v){
-        final ObjectAnimator mover = ObjectAnimator.ofFloat(t, "translationY",0, -height);
+
+    public void animat(final TextView t, String v) {
+        final ObjectAnimator mover = ObjectAnimator.ofFloat(t, "translationY", 0, -height);
 
         mover.setDuration(5000);
         //mover.clone();
-
         //mover.setRepeatCount(0);
-if(mover.isRunning()){
+        if (mover.isRunning()) {
 
-}else {
-    t.setText(v);
-   // t.setWidth(100);
-    mover.start();
-}
+        } else {
+            t.setText(v);
+            // t.setWidth(100);
+            mover.start();
+        }
         t.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String buttonText = t.getText().toString();
-                boolean state ;
-                switch (SelectedWord){
+                boolean state;
+                switch (SelectedWord) {
                     case "Happy":
-                        state =Happy.contains(buttonText);
+                        state = Happy.contains(buttonText);
                         break;
                     case "Sad":
-                        state =Sad.contains(buttonText);
+                        state = Sad.contains(buttonText);
                         break;
                     case "Good":
-                        state =Good.contains(buttonText);
+                        state = Good.contains(buttonText);
                         break;
                     case "Bad":
-                        state =Bad.contains(buttonText);
+                        state = Bad.contains(buttonText);
                         break;
                     case "Weird":
-                        state =Weird.contains(buttonText);
+                        state = Weird.contains(buttonText);
                         break;
                     default:
-                        state=false;
+                        state = false;
                         break;
                 }
-                if(state){
-                    score=score+10;
-                    tvscore.setText(score+"");
-                    mSoundHelper.playSound(t,0);
+                if (state) {
+                    score = score + 10;
+                    tvscore.setText(score + "");
+                    mSoundHelper.playSound(t, 0);
                     //mover.cancel();
                     mover.end();
                     //t.startAnimation(animatn);
-                }else {
-                    score=score-10;
-                    tvscore.setText(score+"");
-                    mSoundHelper.playSound(t,1);
-//                    mover.cancel();
+                } else {
+                    score = score - 10;
+                    tvscore.setText(score + "");
+                    mSoundHelper.playSound(t, 1);
+//                  mover.cancel();
                     mover.end();
-
                     //t.startAnimation(animatn);
                 }
                 t.setClickable(false);
-               /// Toast.makeText(getApplicationContext(), "is "+state, Toast.LENGTH_SHORT).show();
+                /// Toast.makeText(getApplicationContext(), "is "+state, Toast.LENGTH_SHORT).show();
             }
         });
     }

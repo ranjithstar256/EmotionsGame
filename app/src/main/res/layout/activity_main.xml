@@ -3,12 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:orientation="vertical"
-    android:background="@drawable/modern_background"
     android:layout_height="match_parent"
+    android:background="@drawable/modern_background"
+    android:orientation="vertical"
     tools:context="com.androidmanifester.simpleemotionsgame.MainActivity"
-    tools:layout_editor_absoluteY="81dp"
-    tools:layout_editor_absoluteX="0dp">
+    tools:layout_editor_absoluteX="0dp"
+    tools:layout_editor_absoluteY="81dp">
 
     <TextView
         android:id="@+id/textView"
@@ -17,70 +17,65 @@
         android:text=""
         android:textColor="#000"
         android:visibility="gone"
-        tools:layout_editor_absoluteY="256dp"
-        tools:layout_editor_absoluteX="384dp" />
+        tools:layout_editor_absoluteX="384dp"
+        tools:layout_editor_absoluteY="256dp" />
 
     <TextView
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="1dp"
+        android:layout_marginStart="1dp"
         android:text=""
         android:textColor="#000"
         android:visibility="visible"
-        android:layout_marginStart="1dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginBottom="0dp"
-        android:layout_marginLeft="5dp"
         app:layout_constraintLeft_toLeftOf="parent" />
 
     <TextView
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginRight="0dp"
         android:textColor="#000"
         android:textSize="20sp"
-        tools:layout_editor_absoluteY="256dp"
-        tools:layout_editor_absoluteX="384dp" />
+        app:layout_constraintRight_toRightOf="parent"
+        tools:layout_editor_absoluteY="0dp" />
 
     <TextView
         android:id="@+id/textView4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
 
+        android:layout_marginLeft="32dp"
+        android:layout_marginStart="32dp"
         android:text=""
         android:textColor="#000"
         android:visibility="visible"
-        android:layout_marginStart="32dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginBottom="-1dp"
-        app:layout_constraintRight_toLeftOf="@+id/textView10"
-        android:layout_marginRight="0dp"
         app:layout_constraintLeft_toRightOf="@+id/textView6"
-        android:layout_marginLeft="0dp" />
+        app:layout_constraintRight_toLeftOf="@+id/textView10" />
 
     <TextView
         android:id="@+id/textView5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text=""
-
-        android:textColor="#000"
-        android:layout_marginStart="48dp"
         android:layout_marginEnd="38dp"
+
+        android:layout_marginRight="38dp"
+        android:text=""
+        android:textColor="#000"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginBottom="0dp"
-        app:layout_constraintRight_toLeftOf="@+id/textView6"
-        android:layout_marginRight="38dp" />
+        app:layout_constraintRight_toLeftOf="@+id/textView6" />
 
     <TextView
         android:id="@+id/textView6"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="#000"
         android:text=""
+        android:textColor="#000"
 
         app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginBottom="0dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent" />
 
@@ -89,40 +84,35 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
 
-        android:layout_marginEnd="85dp"
+        android:layout_marginLeft="84dp"
         android:layout_marginStart="84dp"
         android:text=""
         android:textColor="#000"
-        android:layout_marginLeft="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginBottom="0dp"
         app:layout_constraintLeft_toRightOf="@+id/textView8" />
 
     <TextView
         android:id="@+id/textView9"
-        android:text=""
-
         android:layout_width="wrap_content"
+
         android:layout_height="wrap_content"
+        android:text=""
         android:textColor="#000"
-        android:layout_marginStart="43dp"
-        tools:layout_editor_absoluteX="170dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginBottom="0dp" />
+        tools:layout_editor_absoluteX="170dp" />
 
     <TextView
         android:id="@+id/textView10"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
 
+        android:layout_marginEnd="3dp"
+        android:layout_marginRight="3dp"
+
         android:text=""
         android:textColor="#000"
-
-        android:layout_marginEnd="3dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginBottom="-1dp"
-        app:layout_constraintRight_toLeftOf="@+id/textView13"
-        android:layout_marginRight="0dp" />
+        app:layout_constraintRight_toLeftOf="@+id/textView13" />
 
     <TextView
         android:id="@+id/textView11"
@@ -132,8 +122,8 @@
 
         android:textColor="#000"
         android:visibility="gone"
-        tools:layout_editor_absoluteY="256dp"
-        tools:layout_editor_absoluteX="43dp" />
+        tools:layout_editor_absoluteX="43dp"
+        tools:layout_editor_absoluteY="256dp" />
 
     <TextView
         android:id="@+id/textView12"
@@ -141,10 +131,7 @@
         android:layout_height="wrap_content"
         android:text=""
         android:textColor="#000"
-        android:layout_marginStart="67dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginBottom="-1dp"
-        android:layout_marginRight="0dp"
         app:layout_constraintRight_toRightOf="parent" />
 
     <TextView
@@ -154,8 +141,6 @@
         android:text=""
         android:textColor="#000"
         android:visibility="visible"
-        android:layout_marginRight="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginBottom="-1dp"
         app:layout_constraintRight_toLeftOf="@+id/textView12" />
 </android.support.constraint.ConstraintLayout>
