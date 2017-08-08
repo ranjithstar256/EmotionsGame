@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="states">
+        <item>Happy</item>
+        <item>Sad</item>
+        <item>Good</item>
+        <item>Good</item>
+        <item>Good</item>
+        <item>sdv</item>
+        <item>sdds</item>
+        <item>sdv</item>
+        <item>Goeod</item>
+        <item>Good</item>
+        <item>Good</item>
+        <item>Bad</item>
+        <item>Weird</item>
+    </string-array>
+</resources>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="SplashView">
+        <attr name="removeFromParentOnEnd" format="boolean" />
+        <attr name="circleRadius" format="reference" />
+        <attr name="rotationRadius" format="reference" />
+        <attr name="rotationDuration" format="integer" />
+        <attr name="splashDuration" format="integer" />
+        <attr name="splashBackgroundColor" format="color" />
+        <attr name="circleColors" format="reference" />
+    </declare-styleable>
+</resources>

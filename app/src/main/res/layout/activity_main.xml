@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/modern_background"
     android:orientation="vertical"
-    tools:context="com.androidmanifester.simpleemotionsgame.MainActivity"
+    tools:context="com.androidmanifester.simpleemotionsgame.GameMode"
     tools:layout_editor_absoluteX="0dp"
     tools:layout_editor_absoluteY="81dp">
 

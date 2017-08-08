@@ -90,7 +90,7 @@ public class SelectWordActivity extends AppCompatActivity {
                             @Override
                             public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
                                 orientatn=1;
-                                startActivity(new Intent(SelectWordActivity.this,MainActivity.class).putExtra("ori",orientatn));
+                                startActivity(new Intent(SelectWordActivity.this, GameMode.class).putExtra("ori", orientatn));
 
                             }
                         })
@@ -98,7 +98,7 @@ public class SelectWordActivity extends AppCompatActivity {
                             @Override
                             public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
                                 orientatn=0;
-                                startActivity(new Intent(SelectWordActivity.this,MainActivity.class).putExtra("ori",orientatn));
+                                startActivity(new Intent(SelectWordActivity.this, GameMode.class).putExtra("ori", orientatn));
 
                             }
                         })
@@ -129,7 +129,7 @@ public class SelectWordActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
                         dialog.cancel();
-                        startActivity(new Intent(SelectWordActivity.this,MainActivity.class).putExtra("ori",orientatn));
+                        startActivity(new Intent(SelectWordActivity.this,GameMode.class).putExtra("ori",orientatn));
                     }
                 });
                 dialog.show();*/

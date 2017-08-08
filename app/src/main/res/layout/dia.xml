@@ -1,31 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
 
     <TextView
         android:id="@+id/textView7"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:textStyle="bold"
-
-        android:textSize="25dp"
+        android:text="Select Orientation"
         android:textColor="#7a1ca3"
-        android:text="Select Orientation" />
+        android:textSize="25dp"
+        android:textStyle="bold"
+        android:visibility="gone" />
 
     <ToggleButton
         android:id="@+id/toggleButton2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textOn="Portrait"
+        android:text="ToggleButton"
         android:textOff="landscape"
-        android:text="ToggleButton" />
+        android:textOn="Portrait"
+        android:visibility="gone" />
 
     <ImageView
         android:id="@+id/imagev"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:src="@android:drawable/ic_media_play" />
+        android:src="@android:drawable/ic_media_play"
+        android:visibility="gone" />
+
+    <ListView
+        android:id="@+id/lv"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </ListView>
 </LinearLayout>

@@ -1,6 +1,7 @@
 package com.androidmanifester.simpleemotionsgame;
 
 import android.animation.ObjectAnimator;
+import android.app.Dialog;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
@@ -9,12 +10,17 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
 import android.view.Gravity;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
@@ -28,8 +34,8 @@ import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class MainActivity extends AppCompatActivity {
-
+public class GameMode extends AppCompatActivity {
+    ArrayList<String> words;
     ArrayList<String> Happy;
     ArrayList<String> Sad;
     ArrayList<String> Good;
@@ -64,6 +70,7 @@ public class MainActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_main);
 
+
         if (((getIntent().getIntExtra("ori", 1)) == 1)) {
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         } else {
@@ -81,7 +88,7 @@ public class MainActivity extends AppCompatActivity {
 
         mSoundHelper.prepareMusicPlayer(this);
         mSoundHelper.playMusic();
-        animatn = AnimationUtils.loadAnimation(MainActivity.this, R.anim.explode);
+        animatn = AnimationUtils.loadAnimation(GameMode.this, R.anim.explode);
 
         tv1 = (TextView) findViewById(R.id.textView);
         tv2 = (TextView) findViewById(R.id.textView2);
@@ -109,6 +116,13 @@ public class MainActivity extends AppCompatActivity {
         BalloonColor = new ArrayList<Integer>();
 
         tvs = new ArrayList<TextView>();
+        words = new ArrayList<String>();
+        words.add("Happy");
+        words.add("Sad");
+        words.add("Good");
+        words.add("Bad");
+        words.add("Weird");
+
 
         tvs.add(tv1);
         tvs.add(tv2);
@@ -244,7 +258,6 @@ public class MainActivity extends AppCompatActivity {
                 .show();
     }
 
-
     public void startgame() {
         Timer t2 = new Timer();
 //Set the schedule function and rate
@@ -329,4 +342,58 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.words, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        final Dialog dialog = new Dialog(GameMode.this);
+        dialog.setContentView(R.layout.dia);
+
+        ListView listView = (ListView) dialog.findViewById(R.id.lv);
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(GameMode.this, android.R.layout.simple_spinner_dropdown_item, words);
+        listView.setChoiceMode(1);
+        listView.setAdapter(arrayAdapter);
+        dialog.setTitle("Select Word");
+
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                SelectedWord = words.get(position);
+                editor.putString("selectedword", SelectedWord).commit();
+                Toast.makeText(GameMode.this, SelectedWord + " selected", Toast.LENGTH_SHORT).show();
+                dialog.dismiss();
+            }
+        });
+
+        dialog.show();
+        return super.onOptionsItemSelected(item);
+    }
+//
+//    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+//        super.onCreateContextMenu(menu, v, menuInfo);
+//        MenuInflater inflater = getMenuInflater();
+//        inflater.inflate(R.menu.context_menu, menu);
+//    }
+//
+//    public boolean onContextItemSelected(MenuItem item) {
+//
+//        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+//        String[] names = getResources().getStringArray(R.array.states);
+//        switch (item.getItemId()) {
+//            case R.id.edit:
+//                Toast.makeText(this, "You have chosen the " + "iki" +
+//                                " context menu option for " + names[(int) info.id],
+//                        Toast.LENGTH_SHORT).show();
+//                return true;
+//
+//            default:
+//                return super.onContextItemSelected(item);
+//        }
+//    }
 }
